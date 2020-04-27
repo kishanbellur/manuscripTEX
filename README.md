@@ -1,2 +1,2 @@
 # manuscripTEX
-A multi-utility tool to create and academic manuscripts.
+A multi-utility tool to "make" and manage academic manuscripts.
