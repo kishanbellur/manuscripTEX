@@ -1,0 +1,103 @@
+\documentclass[preprint]{elsarticle}
+
+\usepackage{amsmath,amssymb}
+\usepackage{tikz}
+\usepackage{natbib}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{subfigure}
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{lipsum}  
+\usepackage{lineno,hyperref}
+\modulolinenumbers[5]
+\journal{The journal of your choosing}
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%% FRONT MATTER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Edit as you see fit
+
+\begin{frontmatter}
+
+\title{manuscripTEX}
+
+\author[U]{Random name1}
+\ead{blah@blah.X}
+\author[U]{Random name2}
+\author[I]{Random name3}
+\author[U]{Random name4\corref{mycorrespondingauthor}}
+\cortext[mycorrespondingauthor]{Corresponding author}
+\ead{XXX@XXX.edu}
+
+\address[U]{University, Utopia}
+\address[I]{National Lab, Utopia}
+
+\begin{abstract}
+TBD.
+\end{abstract}
+
+\begin{keyword}
+keyword1 \sep keyword2 \sep keyword3
+\end{keyword}
+
+\end{frontmatter}
+
+% To begin line #:
+\linenumbers
+
+% Set your graphics path:
+\graphicspath{ {figures/} }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Before you begin to edit}
+
+\begin{enumerate}[(1)]
+\item Rename XXX to something meaningful - say YYY.
+\item Update XXX in makefile - the meaningful YYY.
+\item Update BIBMASTER in makefile. This is the absolute path to your master .bib file.
+\item Edit YYY.tex as you see fit. For now, I recommend editing just the basics- working title, author list, etc.
+\item To create YYY.pdf, open the terminal and type \emph{make pdf}. This will create YYY.pdf but also create a bunch of other quasi-importan files. Your pdf does not have citations yet. To do this you must \emph{make bib}. Now you have generated a list of citations but they have not yet been added to the pdf. \emph{make pdf} to add the citations. You still dont have cross referencing yet. \emph{make pdf} again. Now you have all sorts of extra files you dont really know what to do with. \emph{make clean} to remove these files. If all this seems tiring just type \emph{make} to excecute the entire workflow (latex+bib+crossref+clean) all at once.
+\item Congratulations you have just compiled a tex file! Now would be a good time to checkpoint (small) progress you have made. Open the terminal and type \emph{make snapshot}. This will create v1.
+\item When you get back to it- edit v1 to your heart's extent.
+\item After you`ve made enough changes and want to create a checkpoint for yourself (or you want to call it a day and come back later). 
+\item Only then you can begin editing v1.
+
+\item To create a markup, i.e. highlight differences between current and previous version at any point- make markup. 
+\item If you wish to checkpoint your progress and/or share, \emph{make markup} at any point in time. This will make a backup and automatically create a new version of the file to begin editing.
+\item When you create a snapshot. 
+\end{enumerate}
+
+\section{Experiments}
+
+Any guesses what equation \ref{eq:HK} is?
+\begin{equation} \label{eq:HK}
+\dot{m}^{''}=\sqrt{\frac{k_b}{2 \pi m}}\left(\alpha_e\rho^V_{sat}(T^L_i)\sqrt{T_i^L}-\alpha_c\rho^V\sqrt{T^V}\right)
+\end{equation}
+
+A test image (figure \ref{f1}).
+\begin{figure} [htb]
+\centering
+\includegraphics[width=2in]{university_logo}
+\caption{Go Huskies! \label{f1}}
+\end{figure}
+
+
+\section{Citation}
+Random citation / selfless self-advertisement \cite{bellur_2018a}.
+
+\section{Conclusion}
+No template is ever complete without \emph{lorem ipsum}:
+
+\noindent \lipsum[1]
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%% `Elsevier LaTeX' style
+\bibliographystyle{elsarticle-num}
+\biboptions{comma,sort&compress}
+\bibliography{XXX}
+
+\end{document}
+
