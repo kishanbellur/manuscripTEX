@@ -19,21 +19,21 @@ TEX_OLD_V=$(shell echo $(TEX_BASENAME_OLD) | sed 's/.*_//')
 TEX_OLD_VNUM=$(shell echo $(TEX_BASENAME_OLD) | sed "s/[^0-9]//g")
 $(eval TEX_OLD_VNUM_DEC=$(shell echo $$(($(TEX_OLD_VNUM)-1))))
 
-$(info TEX_BASENAME is ${TEX_BASENAME})
+#$(info TEX_BASENAME is ${TEX_BASENAME})
 #$(info TEX_BASENAME_NEW_EXTN is ${TEX_BASENAME_NEW_EXTN})
 #$(info TEX_BASENAME_NEW is ${TEX_BASENAME_NEW})
 #$(info TEX_BASENAME_OLD is ${TEX_BASENAME_OLD})
 #$(info TEX_DIFF is ${TEX_DIFF})
 #$(info TEX_NEW_V is ${TEX_NEW_V})
 #$(info TEX_OLD_V is ${TEX_OLD_V})
-$(info TEX_NEW_VNUM is ${TEX_NEW_VNUM})
+#$(info TEX_NEW_VNUM is ${TEX_NEW_VNUM})
 #$(info TEX_OLD_VNUM is ${TEX_OLD_VNUM})
 #$(info TEX_NEW_VNUM_INC is ${TEX_NEW_VNUM_INC})
-$(info TEX_OLD_VNUM_DEC is ${TEX_OLD_VNUM_DEC})
+#$(info TEX_OLD_VNUM_DEC is ${TEX_OLD_VNUM_DEC})
 
 TEX_DIFF=${TEX_BASENAME}_MARKUP_${TEX_OLD_V}_to_${TEX_NEW_V}
 TEX_DIFF_OLD=${TEX_BASENAME}_MARKUP_v${TEX_OLD_VNUM_DEC}_to_v${TEX_OLD_VNUM}
-$(info TEX_DIFF_OLD is ${TEX_DIFF_OLD})
+#$(info TEX_DIFF_OLD is ${TEX_DIFF_OLD})
 
 TEX_RESPONSE=${TEX_BASENAME}_${TEX_NEW_V}_RESPONSE
 TEX_SUPPLEMENT=${TEX_BASENAME}_${TEX_NEW_V}_SUPPLEMENT
@@ -57,7 +57,6 @@ bib: $(TEX_BASENAME_NEW).tex
 
 pdf: $(TEX_BASENAME_NEW).tex
 	pdflatex $(TEX_BASENAME_NEW)
-
 
 # Clean up
 clean:
@@ -87,6 +86,7 @@ markup: $(TEX_BASENAME_NEW).tex $(TEX_BASENAME_OLD).tex
 response: $(TEX_RESPONSE).tex
 	pdflatex $(TEX_RESPONSE)
 	pdflatex $(TEX_RESPONSE)
+	# if you wish to include references in your response to reviewers, uncomment the following:
 	#bibtex $(TEX_RESPONSE)
 	#pdflatex $(TEX_RESPONSE)
 	#pdflatex $(TEX_RESPONSE)
@@ -104,17 +104,18 @@ snapshot:
 		rm -rf $(TEX_BASENAME_OLD).* ;\
     	fi
 
-	rsync -a --exclude 'Snapshots' --exclude '*_review' --exclude 'old' --exclude '*.dat' --exclude '*.m' --exclude '*.gnu' --exclude '*.sh' --exclude 'backup' --exclude '*.zip' ./ $(TEX_BASENAME_NEW)_$(DATETIME)/
+	rsync -a --exclude 'Snapshots' --exclude '*_review' --exclude 'old' --exclude '*.dat' --exclude '*.m' --exclude '*.gnu' --exclude '*.sh' --exclude '*backup*' --exclude '*.zip' ./ $(TEX_BASENAME_NEW)_$(DATETIME)/
 	zip -qr $(TEX_BASENAME_NEW)_$(DATETIME).zip $(TEX_BASENAME_NEW)_$(DATETIME)
 	mv $(TEX_BASENAME_NEW)_$(DATETIME).zip ./Snapshots/
 	rm -rf $(TEX_BASENAME_NEW)_$(DATETIME)
 	@echo
-	cp $(TEX_BASENAME_NEW).tex $(TEX_BASENAME)_v$(TEX_NEW_VNUM_INC).tex
 
-		
-	
 # supplement
 supplement: $(TEX_SUPPLEMENT).tex
 	pdflatex $(TEX_SUPPLEMENT)
 	pdflatex $(TEX_SUPPLEMENT)
 	rm -f $(TEX_SUPPLEMENT).aux $(TEX_SUPPLEMENT).blg $(TEX_SUPPLEMENT).dvi $(TEX_SUPPLEMENT).log $(TEX_SUPPLEMENT).out $(TEX_SUPPLEMENT).ps $(TEX_SUPPLEMENT).spl
+	
+# new version
+new_v: $(TEX_BASENAME_NEW).tex
+	cp $(TEX_BASENAME_NEW).tex $(TEX_BASENAME)_v$(TEX_NEW_VNUM_INC).tex
